@@ -1,5 +1,5 @@
 // Thin wrapper around fetch for the Django API (proxied through Vite in development).
-const BASE = "/api";
+const BASE = import.meta.env.VITE_API_URL || "/api";
 const KEY = "lifelink_token";
 export const getToken = () => localStorage.getItem(KEY);
 export const setToken = (t) => (t ? localStorage.setItem(KEY, t) : localStorage.removeItem(KEY));
