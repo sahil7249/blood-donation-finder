@@ -79,3 +79,11 @@ REST_FRAMEWORK = {
 # CORS_ALLOWED_ORIGINS=https://your-app.vercel.app,https://another-domain.com
 _cors_origins = os.environ.get("CORS_ALLOWED_ORIGINS", "")
 CORS_ALLOWED_ORIGINS = [o.strip() for o in _cors_origins.split(",") if o.strip()]
+
+# Also allow all Vercel preview deploy URLs automatically (pattern: https://<anything>.vercel.app)
+# Set CORS_VERCEL_PROJECT to your Vercel project name to restrict to your project only
+_vercel_project = os.environ.get("CORS_VERCEL_PROJECT", "")
+if _vercel_project:
+    CORS_ALLOWED_ORIGIN_REGEXES = [rf"https://{_vercel_project}.*\.vercel\.app"]
+else:
+    CORS_ALLOWED_ORIGIN_REGEXES = [r"https://.*\.vercel\.app"]
