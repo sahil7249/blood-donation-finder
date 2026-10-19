@@ -20,8 +20,8 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",  # Serve static files (Django Admin CSS/JS)
+    "corsheaders.middleware.CorsMiddleware",        # Must be before SessionMiddleware
     "django.contrib.sessions.middleware.SessionMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -75,6 +75,7 @@ REST_FRAMEWORK = {
     "DEFAULT_THROTTLE_RATES": {"anon": "120/min"},
 }
 
-CORS_ALLOWED_ORIGINS = [
-    "DJANGO_ALLOWED_HOSTS",
-]
+# Read comma-separated frontend URLs from env var, e.g.:
+# CORS_ALLOWED_ORIGINS=https://your-app.vercel.app,https://another-domain.com
+_cors_origins = os.environ.get("CORS_ALLOWED_ORIGINS", "")
+CORS_ALLOWED_ORIGINS = [o.strip() for o in _cors_origins.split(",") if o.strip()]
