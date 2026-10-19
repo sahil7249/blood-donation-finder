@@ -15,12 +15,13 @@ ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1").sp
 INSTALLED_APPS = [
     "django.contrib.admin", "django.contrib.auth", "django.contrib.contenttypes",
     "django.contrib.sessions", "django.contrib.messages", "django.contrib.staticfiles",
-    "rest_framework", "rest_framework.authtoken", "core",
+    "rest_framework", "rest_framework.authtoken", "core","corsheaders"
 ]
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",  # Serve static files (Django Admin CSS/JS)
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -74,3 +75,6 @@ REST_FRAMEWORK = {
     "DEFAULT_THROTTLE_RATES": {"anon": "120/min"},
 }
 
+CORS_ALLOWED_ORIGINS = [
+    "DJANGO_ALLOWED_HOSTS",
+]
