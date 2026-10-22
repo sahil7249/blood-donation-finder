@@ -8,6 +8,7 @@ function errorText(data) {
   if (!data) return "Something went wrong. Please try again.";
   if (typeof data === "string") return data;
   if (data.detail) return data.detail;
+  if (data.reply) return data.reply;
   return Object.entries(data).map(([k, v]) => `${k.replace(/_/g, " ")}: ${[].concat(v).join(" ")}`).join(" | ");
 }
 
@@ -44,6 +45,7 @@ export const api = {
   requests: () => request("/requests/"),
   raiseRequest: (body) => request("/requests/", { method: "POST", body }),
   respondToRequest: (id) => request(`/requests/${id}/respond/`, { method: "POST" }),
+  chat: (message, history) => request("/chat/", { method: "POST", body: { message, history } }),
 };
 
 export const BLOOD_GROUPS = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];

@@ -6,6 +6,7 @@ import BecomeDonor from "./components/BecomeDonor.jsx";
 import BloodBankPortal from "./components/BloodBankPortal.jsx";
 import Emergency from "./components/Emergency.jsx";
 import Auth from "./components/Auth.jsx";
+import Chatbot from "./components/Chatbot.jsx";
 import { useAuth } from "./auth.jsx";
 
 const NAV_ITEMS = [
@@ -156,6 +157,8 @@ export default function App() {
         <span className="dot"></span>
         <span>{toastMsg}</span>
       </div>
+
+      <Chatbot />
     </>
   );
 }
